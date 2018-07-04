@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sampler.Basic.Core\Sampler.Basic.Core.csproj" />
+    <ProjectReference Include="..\Sampler.Basic.Data\Sampler.Basic.Data.csproj" />
+  </ItemGroup>
+
+</Project>
