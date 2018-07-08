@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sampler.Basic.Data;
 using Sampler.Basic.Data.Models;
@@ -45,6 +46,8 @@ namespace Sampler.Basic.Services
                 Position = employeeDto.Position,
                 Sex = employeeDto.Sex,
                 IsActive = employeeDto.IsActive,
+                UserCreated = employeeDto.USerId,
+                DateCreated = DateTime.UtcNow,
             };
 
             this.employeeRepository.Insert(employee);

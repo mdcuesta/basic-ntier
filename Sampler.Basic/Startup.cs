@@ -37,6 +37,8 @@ namespace Sampler.Basic
 
             services.AddSingleton(Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ILogger, Logger>();
+            services.AddScoped<IUserContext, UserContext>();
 
             // Utilize DI Framework
             var container = new Container();
@@ -49,6 +51,7 @@ namespace Sampler.Basic
                     _.AssembliesAndExecutablesFromApplicationBaseDirectory();
 
                     // Default Convention
+
                     _.WithDefaultConventions();
 
                     // Register all Dependency Configurations
@@ -76,6 +79,13 @@ namespace Sampler.Basic
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            IEnumerable<IInitializer> initializers = app.ApplicationServices.GetServices<IInitializer>();
+
+            foreach (var initializer in initializers)
+            {
+                initializer.Init();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,13 +104,6 @@ namespace Sampler.Basic
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            IEnumerable<IInitializer> initializers = app.ApplicationServices.GetServices<IInitializer>();
-
-            foreach (IInitializer initializer in initializers)
-            {
-                initializer.Init();
-            }
         }
     }
 }

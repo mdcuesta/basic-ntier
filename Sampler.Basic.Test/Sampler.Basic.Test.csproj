@@ -11,10 +11,14 @@
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.1" />
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sampler.Basic\Sampler.Basic.csproj" />
+    <ProjectReference Include="..\Sampler.Basic.Services\Sampler.Basic.Services.csproj" />
   </ItemGroup>
 
 </Project>

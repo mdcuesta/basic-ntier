@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sampler.Basic.Models;
 using Sampler.Basic.Services;
 using Sampler.Basic.Services.Dto;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Sampler.Basic.Controllers
 {
@@ -14,10 +16,15 @@ namespace Sampler.Basic.Controllers
         private readonly IEmployeeService employeeService;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public HomeController(IEmployeeService employeeService, IHttpContextAccessor httpContextAccessor)
+        public HomeController(IEmployeeService employeeService, 
+                              IHttpContextAccessor httpContextAccessor,
+                             IServiceProvider serviceProvider)
         {
             this.employeeService = employeeService;
             this.httpContextAccessor = httpContextAccessor;
+
+            IEmployeeService employeeService1 = serviceProvider
+                                                    .GetService<IEmployeeService>();
         }
 
         public IActionResult Index()
@@ -28,8 +35,12 @@ namespace Sampler.Basic.Controllers
 
         public IActionResult About()
         {
-            //var userId = this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = int.Parse(User.Identity.Name);//this.httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            this.employeeService.AddNewEmployee(new EmployeeDto
+            {
+                USerId = userId,
+            });
             ViewData["Message"] = "Your application description page.";
             return View();
         }

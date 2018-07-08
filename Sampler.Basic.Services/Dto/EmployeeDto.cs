@@ -21,5 +21,7 @@ namespace Sampler.Basic.Services.Dto
         public string Comment { get; set; }
 
         public bool IsActive { get; set; }
+
+        public int USerId { get; set; }
     }
 }

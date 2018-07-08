@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlServerCe;
 using Microsoft.Extensions.Configuration;
 
 namespace Sampler.Basic.Data.Dapper
@@ -19,7 +18,7 @@ namespace Sampler.Basic.Data.Dapper
         public IDbConnection Create()
         {
             string connectionString = this.configuration.GetConnectionString(DB_CONNECTION);
-            return new SqlCeConnection(connectionString);
+            return new SqlConnection(connectionString);
         }
     }
 }
